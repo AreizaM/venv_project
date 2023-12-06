@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Categorías{% endblock %}
+{% load static %}
+{% block content %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Estilo para las imágenes */
+    th img,
+    td img {
+        width: 50px;
+        /* Ajusta el ancho según tus necesidades */
+        height: auto;
+    }
+    img{
+        width: 60px;
+        height: auto;
+    }
+</style>
+<table>
+    <a href="{% url 'agregar_categoria' %}">
+        <img src="{% static 'images/agregar.png' %}" alt="">
+        Agregar nueva categoria
+    </a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in categorias %}
+        <tr>
+            <td>{{ categoria.id_categoria }}</td>
+            <td>{{ categoria.categoria }}</td>
+            <td>{{ categoria.estado }}</td>
+            <th>
+                <a href="{% url 'editar_categorias' id=categoria.id_categoria %}">
+                    <img src="{% static 'images/editar.png' %}" alt="">
+                </a>
+                <a href="{% url 'eliminar_categorias' id=categoria.id_categoria %}">
+                    <img src="{% static 'images/eliminar.png' %}" alt="">
+                </a>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
